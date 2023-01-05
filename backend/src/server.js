@@ -11,10 +11,11 @@ import Event from "./resolvers/Event"
 import Query from "./resolvers/Query"
 import Mutation from "./resolvers/Mutation"
 import Subscription from "./resolvers/Subscription"
-const express = require('express');
+import express from 'express'
 
 import path from "path";
 
+const app = express()
 
 const pubsub = createPubSub()
 
@@ -41,18 +42,20 @@ const yoga = createYoga({
   },
 })
 
-const httpServer = createServer(yoga)
+//const httpServer = createServer(yoga)
+
+app.use('/graphql', yoga)
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
-  httpServer.express.use(express.static(path.join(__dirname, "../frontend", "build")));
-  httpServer.express.get("/*", function (req, res) {
+  app.use(express.static(path.join(__dirname, "../frontend", "build")));
+  app.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
   });
 }
 
 const wsServer = new WebSocketServer({
-  server: httpServer,
+  server: app,   // httpServer
   path: yoga.graphqlEndpoint,
 })
 if (process.env.NODE_ENV === "development") {
@@ -93,4 +96,4 @@ useServer(
 // server.listen({ port }, () => {
 //   console.log(`The server is up on port ${port}!`)
 // })
-export default httpServer
+export default app    // httpServer
