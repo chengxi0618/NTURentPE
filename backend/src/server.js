@@ -57,7 +57,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const wsServer = new WebSocketServer({
-  server: httpServer,   // httpServer
+  server: http.createServer(app),   // httpServer
   path: yoga.graphqlEndpoint,
 })
 if (process.env.NODE_ENV !== "production") {
@@ -98,4 +98,4 @@ useServer(
 // server.listen({ port }, () => {
 //   console.log(`The server is up on port ${port}!`)
 // })
-export {httpServer, app}    // httpServer
+export default app    // httpServer
