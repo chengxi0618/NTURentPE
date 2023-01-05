@@ -40,13 +40,13 @@ const yoga = createYoga({
     subscriptionsProtocol: "WS",
   },
 })
-const app = express()
+
 const httpServer = createServer(yoga)
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, "../frontend", "build")));
-  app.get("/*", function (req, res) {
+  httpServer.use(express.static(path.join(__dirname, "../frontend", "build")));
+  httpServer.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
   });
 }
@@ -93,4 +93,4 @@ useServer(
 // server.listen({ port }, () => {
 //   console.log(`The server is up on port ${port}!`)
 // })
-export default {httpServer,app}
+export default httpServer
