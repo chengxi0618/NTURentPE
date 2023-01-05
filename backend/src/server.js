@@ -41,19 +41,19 @@ const yoga = createYoga({
 
 const httpServer = createServer(yoga)
 
-/*if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
   httpServer.use(yoga.static(path.join(__dirname, "../frontend", "build")));
   httpServer.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
   });
-}*/
+}
 
 const wsServer = new WebSocketServer({
   server: httpServer,
   path: yoga.graphqlEndpoint,
 })
-//if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
 useServer(
   {
     execute: (args) => args.rootValue.execute(args),
@@ -86,7 +86,7 @@ useServer(
   },
   wsServer
 )
-//}
+}
 // const port = process.env.PORT || 4000
 // server.listen({ port }, () => {
 //   console.log(`The server is up on port ${port}!`)
