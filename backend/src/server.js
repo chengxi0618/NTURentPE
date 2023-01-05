@@ -46,12 +46,12 @@ const yoga = createYoga({
 
 //const httpServer = createServer(yoga)
 
-httpServer.use('/graphql', yoga)
+app.use('/graphql', yoga)
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
-  httpServer.use(express.static(path.join(__dirname, "../frontend", "build")));
-  httpServer.get("/*", function (req, res) {
+  app.use(express.static(path.join(__dirname, "../frontend", "build")));
+  app.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
   });
 }
@@ -98,4 +98,4 @@ useServer(
 // server.listen({ port }, () => {
 //   console.log(`The server is up on port ${port}!`)
 // })
-export default httpServer    // httpServer
+export {httpServer, app}    // httpServer
