@@ -24,7 +24,7 @@ const httpLink = new HttpLink({
 })
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: process.env.NODE_ENV === "production" ? window.location.origin.replace(/^http/, "ws") : "ws://localhost:4000/graphql", 
+    url: process.env.NODE_ENV === "production" ? window.location.origin.replace(/^http/, "wss") : "ws://localhost:4000/graphql", 
     // "ws://localhost:4000/graphql",
     // options: {
     //   lazy: true,
