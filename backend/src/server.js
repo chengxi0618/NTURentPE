@@ -45,8 +45,8 @@ const httpServer = createServer(yoga)
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
-  httpServer.express.use(express.static(path.join(__dirname, "../frontend", "build")));
-  httpServer.express.get("/*", function (req, res) {
+  httpServer.use(express.static(path.join(__dirname, "../frontend", "build")));
+  httpServer.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
   });
 }
