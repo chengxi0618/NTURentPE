@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Calendar from "../components/Calendar"
 import EventList from "../components/EventList"
 import { useRent } from "./hooks/useRent"
+import { EVENT_JOINED_SUBSCRIPTION, EVENT_CANCELED_SUBSCRIPTION } from "../graphql"
 
 const Wrapper = styled.div`
   height: 100%;
