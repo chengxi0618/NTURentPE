@@ -13,6 +13,7 @@ import Mutation from "./resolvers/Mutation"
 import Subscription from "./resolvers/Subscription"
 
 import path from "path";
+import { ApolloClient } from "@apollo/client"
 
 const pubsub = createPubSub()
 
@@ -43,7 +44,7 @@ const httpServer = createServer(yoga)
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
-  httpServer.use(httpServer.static(path.join(__dirname, "../frontend", "build")));
+  httpServer.use(ApolloClient.static(path.join(__dirname, "../frontend", "build")));
   httpServer.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
   });
