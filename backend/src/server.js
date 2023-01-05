@@ -11,6 +11,7 @@ import Event from "./resolvers/Event"
 import Query from "./resolvers/Query"
 import Mutation from "./resolvers/Mutation"
 import Subscription from "./resolvers/Subscription"
+import http from "http";
 import express from 'express'
 
 import path from "path";
@@ -59,7 +60,7 @@ const wsServer = new WebSocketServer({
   server: httpServer,   // httpServer
   path: yoga.graphqlEndpoint,
 })
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV !== "production") {
 useServer(
   {
     execute: (args) => args.rootValue.execute(args),
