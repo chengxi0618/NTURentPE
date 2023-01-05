@@ -1,10 +1,10 @@
 import mongo from "./mongo"
-import app from "./server"
+import httpServer from "./server"
 
 mongo.connect()
 
 // dotenv.config()
 const PORT = process.env.PORT || 4000
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
 })

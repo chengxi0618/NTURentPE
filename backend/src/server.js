@@ -16,6 +16,7 @@ import express from 'express'
 import path from "path";
 
 const app = express()
+const httpServer = http.createServer(app)
 
 const pubsub = createPubSub()
 
@@ -44,18 +45,18 @@ const yoga = createYoga({
 
 //const httpServer = createServer(yoga)
 
-app.use('/graphql', yoga)
+httpServer.use('/graphql', yoga)
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, "../frontend", "build")));
-  app.get("/*", function (req, res) {
+  httpServer.use(express.static(path.join(__dirname, "../frontend", "build")));
+  httpServer.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
   });
 }
 
 const wsServer = new WebSocketServer({
-  server: app,   // httpServer
+  server: httpServer,   // httpServer
   path: yoga.graphqlEndpoint,
 })
 if (process.env.NODE_ENV === "development") {
@@ -96,4 +97,4 @@ useServer(
 // server.listen({ port }, () => {
 //   console.log(`The server is up on port ${port}!`)
 // })
-export default app    // httpServer
+export default httpServer    // httpServer
