@@ -36,7 +36,7 @@ const BoxField = styled(Box)({
   mb: 2,
 })
 
-const properties = ["entertainment", "academic"]
+const properties = ["Entertainment", "Academic", "Arts and Cultural", "Sports", "Service", "Social"]
 
 export default function BasicModal({ open, handleClose, username }) {
   const [activityname, setActivityname] = useState("")

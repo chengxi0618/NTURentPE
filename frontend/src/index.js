@@ -19,11 +19,13 @@ import { createClient } from "graphql-ws"
 import { getMainDefinition } from "@apollo/client/utilities"
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.NODE_ENV === "production" ? "/graphql": "http://localhost:4000/graphql",
+  //"http://localhost:4000/graphql",
 })
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: "ws://localhost:4000/graphql",
+    url: process.env.NODE_ENV === "production" ? window.location.origin.replace(/^http/, "ws") : "ws://localhost:4000/graphql", 
+    // "ws://localhost:4000/graphql",
     // options: {
     //   lazy: true,
     // },
